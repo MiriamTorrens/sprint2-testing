@@ -7,12 +7,12 @@ const roomTemplate = {
 }
 
 describe('Room - isOccupied', () => {
-  test('No existen reservas para esa habitación', () => {
+  it('No existen reservas para esa habitación', () => {
     const room = new Room({...roomTemplate, bookings: []})
     expect(room.isOccupied(new Date(2022, 11, 3))).toBe(false);
   });
 
-  test('Un Booking - La habitación está disponible para esa fecha', () => {
+  it('Un Booking - La habitación está disponible para esa fecha', () => {
     const room = new Room({...roomTemplate, bookings: []})
     const booking1 = new Booking({
       name:"Levi Jacobson",
@@ -26,7 +26,7 @@ describe('Room - isOccupied', () => {
     expect(room.isOccupied(new Date(2022, 12, 7))).toBe(false);
   });
 
-  test('Un Booking - La habitación no está disponible para esa fecha', () => {
+  it('Un Booking - La habitación no está disponible para esa fecha', () => {
     const room = new Room({...roomTemplate, bookings: []})
     const booking1 = new Booking({
       name:"Levi Jacobson",
@@ -40,7 +40,7 @@ describe('Room - isOccupied', () => {
     expect(room.isOccupied(new Date(2022, 11, 3))).toBe("Levi Jacobson");
   });
 
-  test('Varios Bookings - La habitación está disponible para esa fecha', () => {
+  it('Varios Bookings - La habitación está disponible para esa fecha', () => {
     const room = new Room({...roomTemplate, bookings: []})
     const booking1 = new Booking({
       name:"Levi Jacobson",
@@ -70,7 +70,7 @@ describe('Room - isOccupied', () => {
     expect(room.isOccupied(new Date(2022, 12, 3))).toBe(false);
   });
 
-  test('Varios Bookings - La habitación no está disponible para esa fecha', () => {
+  it('Varios Bookings - La habitación no está disponible para esa fecha', () => {
     const room = new Room({...roomTemplate, bookings: []})
     const booking1 = new Booking({
       name:"Levi Jacobson",
@@ -102,12 +102,12 @@ describe('Room - isOccupied', () => {
 });
 
 describe('Room - occupancyPercentage',() => {
-  test('Ocupación 0 si no existen reservas', () => {
+  it('Ocupación 0 si no existen reservas', () => {
     const room = new Room({...roomTemplate, bookings: []})
     expect(room.occupancyPercentage(new Date(2022, 11, 3), new Date(2022, 12, 3))).toBe(0);
   });
   
-  test('Un Booking - Ocupación 0 en las fechas comprobadas', () => {
+  it('Un Booking - Ocupación 0 en las fechas comprobadas', () => {
     const room = new Room({...roomTemplate, bookings: []})
     const booking1 = new Booking({
       name:"Levi Jacobson",
@@ -121,7 +121,7 @@ describe('Room - occupancyPercentage',() => {
     expect(room.occupancyPercentage(new Date(2022, 11, 5), new Date(2022, 12, 10))).toBe(0);
   });
   
-  test('Un Booking - Ocupación 50 en las fechas comprobadas', () => {
+  it('Un Booking - Ocupación 50 en las fechas comprobadas', () => {
     const room = new Room({...roomTemplate, bookings: []})
     const booking1 = new Booking({
       name:"Levi Jacobson",
@@ -135,7 +135,7 @@ describe('Room - occupancyPercentage',() => {
     expect(room.occupancyPercentage(new Date(2022, 11, 1), new Date(2022, 11, 7))).toBe(50);
   });
   
-  test('Un Booking - Ocupación 100 en las fechas comprobadas', () => {
+  it('Un Booking - Ocupación 100 en las fechas comprobadas', () => {
     const room = new Room({...roomTemplate, bookings: []})
     const booking1 = new Booking({
       name:"Levi Jacobson",
@@ -149,7 +149,7 @@ describe('Room - occupancyPercentage',() => {
     expect(room.occupancyPercentage(new Date(2022, 11, 1), new Date(2022, 11, 3))).toBe(100);
   });
   
-  test('Varios Bookings - Ocupación 0 en las fechas comprobadas', () => {
+  it('Varios Bookings - Ocupación 0 en las fechas comprobadas', () => {
     const room = new Room({...roomTemplate, bookings: []})
     const booking1 = new Booking({
       name:"Levi Jacobson",
@@ -179,7 +179,7 @@ describe('Room - occupancyPercentage',() => {
     expect(room.occupancyPercentage(new Date(2022, 9, 1), new Date(2022, 9, 31))).toBe(0);
   });
   
-  test('Varios Bookings - Ocupación 50 en las fechas comprobadas', () => {
+  it('Varios Bookings - Ocupación 50 en las fechas comprobadas', () => {
     const room = new Room({...roomTemplate, bookings: []})
     const booking1 = new Booking({
       name:"Levi Jacobson",
@@ -209,7 +209,7 @@ describe('Room - occupancyPercentage',() => {
     expect(room.occupancyPercentage(new Date(2022, 7, 1), new Date(2022, 7, 31))).toBe(50);
   });
   
-  test('Varios Bookings - Ocupación 100 en las fechas comprobadas', () => {
+  it('Varios Bookings - Ocupación 100 en las fechas comprobadas', () => {
     const room = new Room({...roomTemplate, bookings: []})
     const booking1 = new Booking({
       name:"Levi Jacobson",
@@ -241,7 +241,7 @@ describe('Room - occupancyPercentage',() => {
 });
 
 describe('Booking - getFee', () => {
-  test('Sin ningún descuento', () =>{
+  it('Sin ningún descuento', () =>{
     const room = new Room({...roomTemplate, bookings: []});
     const booking = new Booking({
       name:"Levi Jacobson",
@@ -255,7 +255,7 @@ describe('Booking - getFee', () => {
     expect(booking.getFee()).toBe(201);
   });
 
-  test('Descuento 15% en Room', () =>{
+  it('Descuento 15% en Room', () =>{
     const room = new Room({...roomTemplate, bookings: [], discount: 15});
     const booking = new Booking({
       name:"Levi Jacobson",
@@ -269,7 +269,7 @@ describe('Booking - getFee', () => {
     expect(booking.getFee()).toBe(170.85);
   });
 
-  test('Descuento 20% para el cliente', () =>{
+  it('Descuento 20% para el cliente', () =>{
     const room = new Room({...roomTemplate, bookings: []});
     const booking = new Booking({
       name:"Levi Jacobson",
@@ -283,7 +283,7 @@ describe('Booking - getFee', () => {
     expect(booking.getFee()).toBe(160.8);
   });
 
-  test('Descuento 15% en Room y 20% para el cliente', () =>{
+  it('Descuento 15% en Room y 20% para el cliente', () =>{
     const room = new Room({...roomTemplate, bookings: [], discount: 15});
     const booking = new Booking({
       name:"Levi Jacobson",
@@ -297,7 +297,7 @@ describe('Booking - getFee', () => {
     expect(booking.getFee()).toBe(130.65);
   });
 
-  test('Descuento 50% en Room y 60% para el cliente', () =>{
+  it('Descuento 50% en Room y 60% para el cliente', () =>{
     const room = new Room({...roomTemplate, bookings: [], discount: 50});
     const booking = new Booking({
       name:"Cecil Heaney",
@@ -313,7 +313,7 @@ describe('Booking - getFee', () => {
 });
 
 describe('totalOccupancyPercentage', () => {
-  test('Dos habitaciones - Ocupación 100 en las fechas comprobadas', () =>{
+  it('Dos habitaciones - Ocupación 100 en las fechas comprobadas', () =>{
     const rooms = [];
     const room1 = new Room({...roomTemplate, bookings: []})
     const room2 = new Room({...roomTemplate, name:'Minimal Suite', bookings: []})
@@ -339,7 +339,7 @@ describe('totalOccupancyPercentage', () => {
     expect(totalOccupancyPercentage(rooms, new Date(2022, 11, 1), new Date(2022, 11, 3))).toBe(100);
   });
 
-  test('Dos habitaciones - Ocupación 50 en las fechas comprobadas', () =>{
+  it('Dos habitaciones - Ocupación 50 en las fechas comprobadas', () =>{
     const rooms = [];
     const room1 = new Room({...roomTemplate, bookings: []})
     const room2 = new Room({...roomTemplate, name:'Minimal Suite', bookings: []})
@@ -365,7 +365,7 @@ describe('totalOccupancyPercentage', () => {
     expect(totalOccupancyPercentage(rooms, new Date(2022, 11, 1), new Date(2022, 11, 31))).toBe(50);
   });
 
-  test('Dos habitaciones - Ocupación 0 en las fechas comprobadas', () =>{
+  it('Dos habitaciones - Ocupación 0 en las fechas comprobadas', () =>{
     const rooms = [];
     const room1 = new Room({...roomTemplate, bookings: []})
     const room2 = new Room({...roomTemplate, name:'Minimal Suite', bookings: []})
@@ -391,7 +391,7 @@ describe('totalOccupancyPercentage', () => {
     expect(totalOccupancyPercentage(rooms, new Date(2022, 12, 5), new Date(2022, 12, 10))).toBe(0);
   });
 
-  test('Cinco habitaciones - Ocupación 100 en las fechas comprobadas', () =>{
+  it('Cinco habitaciones - Ocupación 100 en las fechas comprobadas', () =>{
     const rooms = [];
     const room1 = new Room({...roomTemplate, bookings: []})
     const room2 = new Room({...roomTemplate, name:'Minimal Suite', bookings: []});
@@ -455,7 +455,7 @@ describe('totalOccupancyPercentage', () => {
     expect(totalOccupancyPercentage(rooms, new Date(2022, 11, 1), new Date(2022, 11, 31))).toBe(100);
   });
 
-  test('Cinco habitaciones - Ocupación 50 en las fechas comprobadas', () =>{
+  it('Cinco habitaciones - Ocupación 50 en las fechas comprobadas', () =>{
     const rooms = [];
     const room1 = new Room({...roomTemplate, bookings: []})
     const room2 = new Room({...roomTemplate, name:'Minimal Suite', bookings: []});
@@ -518,7 +518,7 @@ describe('totalOccupancyPercentage', () => {
     room5.bookings.push(booking6);
     expect(totalOccupancyPercentage(rooms, new Date(2022, 11, 1), new Date(2022, 11, 31))).toBe(50);
   });
-  test('Cinco habitaciones - Ocupación 0 en las fechas comprobadas', () =>{
+  it('Cinco habitaciones - Ocupación 0 en las fechas comprobadas', () =>{
     const rooms = [];
     const room1 = new Room({...roomTemplate, bookings: []})
     const room2 = new Room({...roomTemplate, name:'Minimal Suite', bookings: []});
@@ -586,7 +586,7 @@ describe('totalOccupancyPercentage', () => {
 
 
 describe('availableRooms', () => {
-  test('Dos habitaciones - Ninguna disponible en las fechas comprobadas', () =>{
+  it('Dos habitaciones - Ninguna disponible en las fechas comprobadas', () =>{
     const rooms = [];
     const room1 = new Room({...roomTemplate, bookings: []})
     const room2 = new Room({...roomTemplate, name:'Minimal Suite', bookings: []})
@@ -612,7 +612,7 @@ describe('availableRooms', () => {
     expect(availableRooms(rooms, new Date(2022, 11, 1), new Date(2022, 11, 8))).toBe("No room available");
   });
 
-  test('Dos habitaciones - Ambas disponibles en la fechas comprobadas', () =>{
+  it('Dos habitaciones - Ambas disponibles en la fechas comprobadas', () =>{
     const rooms = [];
     const room1 = new Room({...roomTemplate, bookings: []})
     const room2 = new Room({...roomTemplate, name:'Minimal Suite', bookings: []})
@@ -638,7 +638,7 @@ describe('availableRooms', () => {
     expect(availableRooms(rooms, new Date(2022, 11, 1), new Date(2022, 11, 31))).toBe("Ocean View Suite,Minimal Suite");
   });
 
-  test('Dos habitaciones - Una disponible en las fechas comprobadas', () =>{
+  it('Dos habitaciones - Una disponible en las fechas comprobadas', () =>{
     const rooms = [];
     const room1 = new Room({...roomTemplate, bookings: []})
     const room2 = new Room({...roomTemplate, name:'Minimal Suite', bookings: []})
@@ -664,7 +664,7 @@ describe('availableRooms', () => {
     expect(availableRooms(rooms, new Date(2022, 12, 1), new Date(2022, 12, 31))).toBe("Ocean View Suite");
   });
 
-  test('Cinco habitaciones - Ninguna disponible en las fechas comprobadas', () =>{
+  it('Cinco habitaciones - Ninguna disponible en las fechas comprobadas', () =>{
     const rooms = [];
     const room1 = new Room({...roomTemplate, bookings: []})
     const room2 = new Room({...roomTemplate, name:'Minimal Suite', bookings: []});
@@ -728,7 +728,7 @@ describe('availableRooms', () => {
     expect(availableRooms(rooms, new Date(2022, 12, 1), new Date(2022, 12, 31))).toBe("No room available");
   });
 
-  test('Cinco habitaciones - Todas Disponibles en las fechas comprobadas', () =>{
+  it('Cinco habitaciones - Todas Disponibles en las fechas comprobadas', () =>{
     const rooms = [];
     const room1 = new Room({...roomTemplate, bookings: []})
     const room2 = new Room({...roomTemplate, name:'Minimal Suite', bookings: []});
@@ -792,7 +792,7 @@ describe('availableRooms', () => {
     expect(availableRooms(rooms, new Date(2022, 12, 1), new Date(2022, 12, 31))).toBe("Ocean View Suite,Minimal Suite,Orange Suite,Blue Suite,Green Suite");
   });
 
-  test('Cinco habitaciones - Tres disponible en las fechas comprobadas', () =>{
+  it('Cinco habitaciones - Tres disponible en las fechas comprobadas', () =>{
     const rooms = [];
     const room1 = new Room({...roomTemplate, bookings: []})
     const room2 = new Room({...roomTemplate, name:'Minimal Suite', bookings: []});
