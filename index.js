@@ -74,7 +74,9 @@ function availableRooms(rooms, startDate, endDate){
             if(room.isOccupied(day)){
                  break;
             }
-            available.push(room.name);
+            if(!available.includes(room.name)){
+                available.push(room.name);
+            }
         }
     }
     return available.length ? available : "No room available";
